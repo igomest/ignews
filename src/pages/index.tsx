@@ -1,9 +1,9 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import { HomeProps } from '../../interfaces/props'
-import { stripe } from '../../services/stripe'
+import { stripe } from '../services/stripe'
 
 import { SubscribeButton } from '../components/SubscribeButton'
+import { HomeProps } from '../interface/propTypes'
 
 import styles from './home.module.scss'
 

@@ -33,7 +33,9 @@ export default function Home({ product }: HomeProps) {
   )
 }
 
+
 export const getStaticProps: GetStaticProps = async () => {
+  // Essa função é para que o Next utilize o SSG, buscando o preço do produto. Abaixo tem o price, contendo o id do price/produto no Stripe. Temos também um objeto de produt, contendo o id do preço e o preço sendo formatado para o formato en-US. 
   const price = await stripe.prices.retrieve('price_1KpBxZJBWmnFCVabhKEkzrxu')
 
   const product = {
@@ -43,6 +45,10 @@ export const getStaticProps: GetStaticProps = async () => {
       currency: 'USD',
     }).format(price.unit_amount / 100),
   }
+  
+  // Logo no final, temos um revalidate de a cada 1min, um novo HTML estático é gerado em 24hrs. Ou seja, se em 1min, a página for acessada 1 milhão de vezes, os usuários verão o mesmo HTML estático da página gerado pelo SSG. Depois de 1min, a página é reconstruída novamente, com um novo HTML estático. Assim o ciclo se repete e a aplicação fica mais perfomática.
+  // Revalidate = reconstrução da página.
+
 
   return {
     props: {

@@ -19,7 +19,7 @@ export default NextAuth({
         }),
     ],
     callbacks: {
-        // Inserindo o e-mail do usuário no banco, após ele
+        // Inserindo o e-mail do usuário no banco, após ele fazer o signIn
         async signIn({ user, account, profile }) {
             const { email } = user
 

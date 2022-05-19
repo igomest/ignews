@@ -17,7 +17,7 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
         }
 
         // Se a sessão do usuário tiver uma inscrição ativa, ele é redirecionado para a página de posts.
-        if (session.activeSubscription) {
+        if (session?.activeSubscription) {
             router.push('/posts')
             return;
         }

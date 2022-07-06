@@ -11,7 +11,7 @@ const post =
         slug: 'my-new-post',
         title: 'My New Post',
         content: '<p>Post excerpt</p>',
-        updatedAt: 'March, 10'
+        updatedAt: '01 de abril de 2021'
     }
 
 
@@ -26,7 +26,7 @@ describe('Post page', () => {
     it('redirects user if no subscription is found', async () => {
         const getSessionsMocked = jest.mocked(getSession)
 
-        getSessionsMocked.mockResolvedValueOnce(null)
+        getSessionsMocked.mockReturnValueOnce(null)
 
         const response = await getServerSideProps({
             params: {
@@ -47,19 +47,19 @@ describe('Post page', () => {
         const getSessionMocked = jest.mocked(getSession)
         const getPrismicClientMocked = jest.mocked(getPrismicClient)
 
-        getPrismicClientMocked.mockResolvedValueOnce({
-            getByType: jest.fn().mockResolvedValueOnce({
-                data: {
-                    title: [
-                        { type: 'heading', text: 'My new post' }
-                    ],
-                    content: [
-                        { type: 'paragraph', text: 'Post excerpt' }
-                    ],
-                },
-                last_publication_date: '04-01-2021'
+        getPrismicClientMocked.mockReturnValueOnce({
+            getByUID: jest.fn().mockReturnValueOnce({
+              data: {
+                title: [
+                  { type: 'heading', text: 'My New Post' } // Também alterei aqui para respeitar o case-sensitive
+                ],
+                content: [
+                  { type: 'paragraph', text: 'Post excerpt' }
+                ],
+              },
+              last_publication_date: '04-01-2021'
             })
-        } as never)
+          } as any)
 
         getSessionMocked.mockResolvedValueOnce({
             activeSubscription: 'fake-active-subscription'
@@ -78,7 +78,7 @@ describe('Post page', () => {
                     slug: 'my-new-post',
                     title: 'My New Post',
                     content: '<p>Post excerpt</p>',
-                    updatedAt: 'March, 10'
+                    updatedAt: '01 de abril de 2021'
                 }
                }
             })

@@ -23,8 +23,8 @@ describe('Posts page', () => {
     it('loads initial data', async () => {
         const getPrismicClientMocked = jest.mocked(getPrismicClient)
 
-        getPrismicClientMocked.mockResolvedValueOnce({
-            query: jest.fn().mockResolvedValueOnce({
+        getPrismicClientMocked.mockReturnValueOnce({
+            query: jest.fn().mockReturnValueOnce({
                 results: [
                     {
                         uid: 'my-new-post',
@@ -48,7 +48,7 @@ describe('Posts page', () => {
             expect.objectContaining({
                 props: {
                     posts: [{
-                        slug: 'mt-new-post',
+                        slug: 'my-new-post',
                         title: 'My new post',
                         excerpt: 'Post excerpt',
                         updatedAt: '01 de abril de 2021'
